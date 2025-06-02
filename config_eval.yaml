@@ -1,0 +1,20 @@
+# Configuration file for run_eval.py
+kernel: ["rv05"]
+  
+# Which indices to consider when running the models
+index: [nasdaq100, all]
+
+# Which models to consider when evaluating the models
+models:
+  har_ols: "HAR (OLS)"
+  har_ols_pooled: "HAR (OLS, pooled)"
+  har_wls: "HAR (WLS)"
+  har_wls_pooled: "HAR (WLS, pooled)"
+  lasso: "lasso"
+  lasso_pooled: "lasso (pooled)"
+  rf: "Random Forest"
+  rf_pooled: "Random Forest (pooled)"
+  gbt: "Gradient Boosted Trees"
+  gbt_pooled: "Gradient Boosted Trees (pooled)"
+  ffnn: "Feedforward Neural Network"
+  ffnn_pooled: "Feedforward Neural Network (pooled)"

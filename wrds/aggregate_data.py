@@ -81,7 +81,7 @@ def aggregate_daily_files(dir: str) -> pd.DataFrame:
         return pd.concat(dfs).sort_index()
     else:
         return pd.DataFrame({})
-    
+
 
 def process_stock(stock: str, overwrite: bool = True) -> None:
     dir_in = "data_raw"
@@ -90,7 +90,7 @@ def process_stock(stock: str, overwrite: bool = True) -> None:
     if not overwrite:
         if f"{stock}.pkl" in os.listdir(dir_out):
             return
-    
+
     df = aggregate_daily_files(f"{dir_in}/{stock}")
     if len(df):
         df.to_pickle(f"{dir_out}/{stock}.pkl")
@@ -99,28 +99,31 @@ def process_stock(stock: str, overwrite: bool = True) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-i", "--input", 
+        "-i",
+        "--input",
         metavar="path",
         default="data_raw",
-        help="Input directory containing raw data files"
+        help="Input directory containing raw data files",
     )
     parser.add_argument(
-        "-o", "--output",
-        metavar="path", 
+        "-o",
+        "--output",
+        metavar="path",
         default="data_agg",
-        help="Output directory for aggregated data"
+        help="Output directory for aggregated data",
     )
     parser.add_argument(
         "--no-overwrite",
         action="store_false",
         dest="overwrite",
-        help="Do not overwrite existing files"
+        help="Do not overwrite existing files",
     )
     parser.add_argument(
-        "-p", "--processes",
+        "-p",
+        "--processes",
         type=int,
         default=os.cpu_count(),
-        help="Number of processes to use"
+        help="Number of processes to use",
     )
     args = parser.parse_args()
 
@@ -128,8 +131,8 @@ if __name__ == "__main__":
         os.mkdir(args.output)
 
     stocks = os.listdir(args.input)
-    
+
     ps = partial(process_stock, overwrite=args.overwrite)
-    
+
     with ProcessPoolExecutor(max_workers=args.processes) as executor:
         list(tqdm(executor.map(ps, stocks), total=len(stocks)))

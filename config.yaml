@@ -1,0 +1,49 @@
+# Configuration file for run_models.py
+
+data:
+  # Path to the directory containing the data
+  path: "/home/jchassot/Data/ms-datautils/data_agg"
+
+  # Start date must cover the lags, we will overshoot and drop the dates
+  # pre-2016 when analyzing the performance of the models
+  start_date: "2015-06-01"
+  start_valid: "2021-01-01"
+  start_test: "2022-01-01"
+  
+  # Kernel can be used to preaverage the returns, valid values are:
+  # - None: no preaveraging
+  # - "preavg": preaveraging using the rolling mean
+  kernel: None
+  
+  # Which indices to consider when running the models
+  index: [all, dow30, nasdaq100]
+
+
+models:
+  har:
+    training_window: 630
+    reestimation_frequency: 1
+
+  lasso:
+    hyperparams:
+      alpha:
+        from: -5
+        to: 2
+        total: 1000
+
+  ffnn:
+    hyperparams:
+      ffnn__hidden_layer_sizes: [[2], [4,2], [8,4,2], [16,8,4,2], [32,32], [64,64]]
+      ffnn__alpha: [0.0001, 0]
+      
+  gbt:
+    hyperparams:
+      max_iter: [100, 250, 500]
+      learning_rate: [0.1, 0.05, 0.01]
+      max_depth: [1, 2, 3]
+
+  rf:
+    hyperparams:
+      n_estimators: [100, 250, 500]
+      min_samples_leaf: [1, 5, 10]
+      max_features: [0.333, 1.0, "sqrt"]
