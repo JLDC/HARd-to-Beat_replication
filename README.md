@@ -18,7 +18,7 @@ Jonathan Chassot and Francesco Audrino
 └── run_models.py    # Code to run the models
 ```
 
-### 1. Preparing the data
+## 1. Preparing the data
 
 The `wrds` directory contains the code to download and aggregate the data from [Wharton Research Data Services (WRDS)](https://wrds-www.wharton.upenn.edu/). Due to the data being proprietary, we cannot share the data and only provide the code to download it given the sufficient authorization.
 
@@ -29,7 +29,7 @@ wrds/
 └── utils.py            # Diverse helper functions
 ```
 
-##### 1.1. Downloading the TAQ data
+#### 1.1. Downloading the TAQ data
 
 `wrds/query_taq.py` can be run to download the TAQ data for a given stock and a given date range.
 
@@ -44,7 +44,7 @@ python wrds/query_taq.py
 
 The `credentials` file should contain the credentials for the WRDS database, i.e., the username on the first line and the password on the second line.
 
-##### 1.2. Aggregating the TAQ data
+#### 1.2. Aggregating the TAQ data
 
 `wrds/aggregate_data.py` can be run to aggregate the downloaded TAQ data.
 
@@ -57,7 +57,7 @@ python wrds/aggregate_data.py
 ```
 
 
-### 2. Running the models
+## 2. Running the models
 
 The `run_models.py` script can be run to train all models from the paper and produce the forecasts as follows:
 
@@ -110,7 +110,7 @@ models:
       max_features: list[float|string] # Maximum number of features
 ```
 
-### 3. Evaluating the forecasts and producing the tables / figures
+## 3. Evaluating the forecasts and producing the tables / figures
 
 The `run_eval.py` script can be run to evaluate the forecasts and produce the result tables / figures of the paper as follows:
 
